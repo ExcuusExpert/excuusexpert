@@ -35,7 +35,7 @@ const database = {
       "Mijn excuses, het verkeer zat vanochtend flink tegen.",
       "Sorry dat ik te laat ben, de brug ging open vlak toen ik eraankwam.",
       "Excuus, mijn wekker is helaas niet afgegaan vanochtend.",
-      "Sorry, ik moest nog even wachten op de aansluitende bus.",
+      "Sorry, ik moest nog enen wachten op de aansluitende bus.",
       "Mijn excuses, ik kon mijn fietssleutel niet vinden toen ik weg wilde.",
       "Sorry dat ik te laat ben, het was erg druk bij de trap en gangen.",
       "Excuus voor de vertraging, mijn fietsketting liep eraf onderweg.",
@@ -268,8 +268,8 @@ const database = {
       "Excuus voor het vergeten van mijn werkmap. Ik accepteer de eventuele maatregel die hierop staat en zorg dat het morgen op orde is.",
       "Het spijt me ten zeerste dat ik het verkeerde werk heb voorbereid. Ik had de studiewijzer kritischer moeten raadplegen.",
       "Mijn oprechte excuses dat ik het huiswerk niet op school heb. Ik neem de volledige verantwoordelijkheid voor het gebrek aan controle vanochtend.",
-      "Excuus voor het verzuimen van deze verplichting. Ik begrijp volkomen dat dit mijn eigen verantwoording is en betreur dit voorval.",
-      "Het spijt me oprecht dat ik de gemaakte opdrachten thuis heb laten liggen. Ik draag zelf de consequenties voor deze onoplettendheid.",
+      "Excuus voor het verzuimen van deze verplichting. Ik begrijp volkomen dat dit mijn eigen schuld is en betreur dit voorval.",
+      "Het spijt me oprecht dat ik onzorgvuldig ben geweest met het inpakken van mijn schoolspullen. Ik draag de gevolgen van deze onoplettendheid.",
       "Mijn excuses voor het ontbreken van de benodigde stukken. Ik zal er persoonlijk zorg voor dragen dat dit niet meer zal voorkomen.",
       "Excuus voor het niet kunnen overleggen van mijn huiswerk. Ik snap dat u hier waarde aan hecht en bied mijn verontschuldigingen aan.",
       "Het spijt me ten zeerste. Ik had mijn voorbereiding en het inpakken van de tas serieuzer moeten aanpakken.",
@@ -719,19 +719,15 @@ function bepaalGroep(strengheid) {
   if (strengheid <= 2) {
     return "1-2";
   }
-
   if (strengheid <= 4) {
     return "3-4";
   }
-
   if (strengheid <= 6) {
     return "5-6";
   }
-
   if (strengheid <= 8) {
     return "7-8";
   }
-
   return "9-10";
 }
 
@@ -757,7 +753,7 @@ slider.addEventListener("input", function () {
 
 
 /* -----------------------------
-   SMOES GENEREREN
+   SMOES GENEREREN & COOLDOWN
 ----------------------------- */
 
 knop.addEventListener("click", function () {
@@ -776,7 +772,33 @@ knop.addEventListener("click", function () {
   }
 
   resultaat.style.display = "block";
+
+  // 1. Blokkeer de knop tegen spammen
+  knop.disabled = true;
+  const origineleTekst = knop.textContent;
+
+  let seconden = 5;
+  knop.textContent = `Wacht ${seconden}s...`;
+
+  // 2. Tel elke seconde af
+  const timer = setInterval(() => {
+    seconden--;
+    if (seconden > 0) {
+      knop.textContent = `Wacht ${seconden}s...`;
+    } else {
+      // 3. Herstel de knop na 5 seconden
+      clearInterval(timer);
+      knop.disabled = false;
+      knop.textContent = origineleTekst;
+    }
+  }, 1000);
 });
+
+
+/* -----------------------------
+   SMOES DELEN
+----------------------------- */
+
 const shareBtn = document.getElementById('shareBtn');
 
 shareBtn.addEventListener('click', async () => {
@@ -787,18 +809,20 @@ shareBtn.addEventListener('click', async () => {
     return;
   }
 
+  const shareUrl = 'https://excuusexpert.github.io/excuusexpert';
+
   if (navigator.share) {
     try {
       await navigator.share({
         title: 'ExcuusExpert',
         text: `Check deze smoes: "${smoesTekst}"`,
-        url: 'https://excuusexpert.netlify.app'
+        url: shareUrl
       });
     } catch (err) {
       console.log('Delen geannuleerd');
     }
   } else {
-    navigator.clipboard.writeText(`"${smoesTekst}" - Genereer je eigen smoes op https://excuusexpert.netlify.app`);
+    navigator.clipboard.writeText(`"${smoesTekst}" - Genereer je eigen smoes op ${shareUrl}`);
     alert('Smoes gekopieerd naar klembord!');
   }
 });
