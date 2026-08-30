@@ -69,7 +69,7 @@ const database = {
       "Mijn excuses voor mijn te late komst. Ik had wat opstartproblemen deze ochtend.",
       "Excuus voor de vertraging. Ik moest onderweg een alternatieve route nemen.",
       "Mijn excuses dat ik te laat ben. Ik zal me snel installeren zodat ik mee kan doen.",
-      "Sorry dat ik te laat binnenstap. Mijn spullen stonden nog niet klaar vanochtend.",
+      "Sorry dat ik te laat binnenstap. Mijn spullen stonden noch niet klaar vanochtend.",
       "Mijn excuses, het inhalen van de vertraging onderweg is helaas niet helemaal gelukt.",
       "Excuus voor de vertraging. De verkeersomstandigheden waren vanmorgen minder gunstig.",
       "Mijn excuses dat ik te laat ben. Ik had de tijdsduur van mijn reis onderschat.",
@@ -79,7 +79,7 @@ const database = {
       "Mijn excuses, ik was in het verkeerde lokaal gaan zitten en moest omlopen.",
       "Sorry dat ik te laat binnenkom. Mijn ochtendroutine liep helaas wat vertraging op.",
       "Mijn excuses voor mijn verlate binnenkomst. Ik zal direct aanschuiven bij de les.",
-      "Excuus, ik had niet door dat de bel al gagaat was toen ik in de gang stond.",
+      "Excuus, ik had niet door dat de bel al gegaan was toen ik in de gang stond.",
       "Mijn excuses dat ik te laat ben. Ik neem meteen mijn spullen erbij.",
       "Sorry voor de vertraging. Ik zal zorgen dat ik dit snel inhaal."
     ],
@@ -698,7 +698,7 @@ const database = {
       "Het spijt me dat ik de gestelde deadline niet gehaald heb. Ik zal de resterende onderdelen vandaag alsnog zelfstandig opleveren.",
       "Mijn excuses voor het niet nakomen van mijn verplichting tot een volledige uitwerking. Ik accepteer de eventuele sancties die hieraan verbonden zijn.",
       "Excuus voor de slordige planning van mijn werkzaamheden. Ik neem dit voorval uiterst serieus en zorg voor een passend vervolg.",
-      "Het spijt me oprecht dat ik door tijdgebrek niet klaar ben. Ik erkent dat het mijn taak was om tijdig aan te trekken bij knelpunten.",
+      "Het spijt me oprecht dat ik door tijdgebrek niet klaar ben. Ik erken dat het mijn taak was om tijdig aan te trekken bij knelpunten.",
       "Mijn oprechte excuses voor deze onvoldoende tijdsbeheersing. Ik zal mijn werkwijze en planningsmethodiek per direct herzien.",
       "Excuus dat het gevraagde werk incompleet is. Ik aanvaard dat de oorzaak van het tijdgebrek volledig bij mijn eigen keuzes ligt.",
       "Het spijt me ten zeerste dat mijn oplevering niet aan de norm voldoet. Ik zal er persoonlijk zorg voor dragen dat dit niet meer voorkomt.",
@@ -710,119 +710,152 @@ const database = {
   }
 };
 
-
 /* -----------------------------
    STRENGHEID BEPALEN
 ----------------------------- */
-
 function bepaalGroep(strengheid) {
-  if (strengheid <= 2) {
-    return "1-2";
-  }
-  if (strengheid <= 4) {
-    return "3-4";
-  }
-  if (strengheid <= 6) {
-    return "5-6";
-  }
-  if (strengheid <= 8) {
-    return "7-8";
-  }
+  if (strengheid <= 2) return "1-2";
+  if (strengheid <= 4) return "3-4";
+  if (strengheid <= 6) return "5-6";
+  if (strengheid <= 8) return "7-8";
   return "9-10";
 }
-
 
 /* -----------------------------
    ELEMENTEN UIT HTML
 ----------------------------- */
-
 const slider = document.getElementById("strengheid");
 const waarde = document.getElementById("strengheidWaarde");
 const knop = document.getElementById("generateButton");
 const resultaat = document.getElementById("result");
 const resultaatTekst = document.getElementById("resultText");
-
+const shareBtn = document.getElementById("shareBtn");
+const copyBtn = document.getElementById("copyBtn");
 
 /* -----------------------------
-   SLIDER
+   SLIDER EVENTS
 ----------------------------- */
-
-slider.addEventListener("input", function () {
-  waarde.textContent = slider.value;
-});
-
+if (slider && waarde) {
+  slider.addEventListener("input", function () {
+    waarde.textContent = slider.value;
+  });
+}
 
 /* -----------------------------
    SMOES GENEREREN & COOLDOWN
 ----------------------------- */
+let vorigeIndex = -1;
 
-knop.addEventListener("click", function () {
-  const probleem = document.getElementById("probleem").value;
-  const strengheid = Number(slider.value);
-  const groep = bepaalGroep(strengheid);
+if (knop) {
+  knop.addEventListener("click", function () {
+    const probleem = document.getElementById("probleem").value;
+    const strengheid = Number(slider.value);
+    const groep = bepaalGroep(strengheid);
 
-  const opties = database[probleem][groep];
+    const opties = database[probleem][groep];
 
-  // Als er meerdere smoezen zijn, kies er exact één willekeurig
-  if (Array.isArray(opties)) {
-    const willekeurigeIndex = Math.floor(Math.random() * opties.length);
-    resultaatTekst.textContent = opties[willekeurigeIndex];
-  } else {
-    resultaatTekst.textContent = opties;
-  }
+    // Kies willekeurige smoes en voorkom dat dezelfde 2x achter elkaar komt
+    if (Array.isArray(opties)) {
+      let willekeurigeIndex;
+      do {
+        willekeurigeIndex = Math.floor(Math.random() * opties.length);
+      } while (willekeurigeIndex === vorigeIndex && opties.length > 1);
 
-  resultaat.style.display = "block";
-
-  // 1. Blokkeer de knop tegen spammen
-  knop.disabled = true;
-  const origineleTekst = knop.textContent;
-
-  let seconden = 5;
-  knop.textContent = `Wacht ${seconden}s...`;
-
-  // 2. Tel elke seconde af
-  const timer = setInterval(() => {
-    seconden--;
-    if (seconden > 0) {
-      knop.textContent = `Wacht ${seconden}s...`;
+      vorigeIndex = willekeurigeIndex;
+      resultaatTekst.textContent = opties[willekeurigeIndex];
     } else {
-      // 3. Herstel de knop na 5 seconden
-      clearInterval(timer);
-      knop.disabled = false;
-      knop.textContent = origineleTekst;
+      resultaatTekst.textContent = opties;
     }
-  }, 1000);
-});
 
+    if (resultaat) {
+      resultaat.style.display = "block";
+    }
+
+    // 1. Blokkeer de knop tegen spammen
+    knop.disabled = true;
+    const origineleTekst = knop.textContent;
+
+    let seconden = 5;
+    knop.textContent = `Wacht ${seconden}s...`;
+
+    // 2. Tel elke seconde af
+    const timer = setInterval(() => {
+      seconden--;
+      if (seconden > 0) {
+        knop.textContent = `Wacht ${seconden}s...`;
+      } else {
+        // 3. Herstel de knop na 5 seconden
+        clearInterval(timer);
+        knop.disabled = false;
+        knop.textContent = origineleTekst;
+      }
+    }, 1000);
+  });
+}
+
+/* -----------------------------
+   SMOES KOPIËREN
+----------------------------- */
+if (copyBtn) {
+  copyBtn.addEventListener("click", () => {
+    const smoesTekst = resultaatTekst ? resultaatTekst.textContent : "";
+    
+    if (!smoesTekst) {
+      const origineleTekst = copyBtn.textContent;
+      copyBtn.textContent = "⚠️ Niks om te kopiëren!";
+      setTimeout(() => {
+        copyBtn.textContent = origineleTekst;
+      }, 2000);
+      return;
+    }
+
+    navigator.clipboard.writeText(smoesTekst);
+    const origineleTekst = copyBtn.textContent;
+    copyBtn.textContent = "✅ Gekopieerd!";
+    setTimeout(() => {
+      copyBtn.textContent = origineleTekst;
+    }, 2000);
+  });
+}
 
 /* -----------------------------
    SMOES DELEN
 ----------------------------- */
+if (shareBtn) {
+  shareBtn.addEventListener("click", async () => {
+    const smoesTekst = resultaatTekst ? resultaatTekst.textContent : "";
 
-const shareBtn = document.getElementById('shareBtn');
-
-shareBtn.addEventListener('click', async () => {
-  const smoesTekst = document.getElementById('resultText').innerText;
-
-  if (!smoesTekst) {
-    alert('Genereer eerst een smoes om te delen!');
-    return;
-  }
-
-  const shareUrl = 'https://excuusexpert.github.io/excuusexpert';
-
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: 'ExcuusExpert',
-        text: `Check deze smoes: "${smoesTekst}"`,
-        url: shareUrl
-      });
-    } catch (err) {
-      console.log('Delen geannuleerd');
+    // Geef subtiele knop-feedback als er nog geen smoes is gegeneerd
+    if (!smoesTekst) {
+      const origineleShareTekst = shareBtn.textContent;
+      shareBtn.textContent = "⚠️ Genereer eerst een smoes!";
+      setTimeout(() => {
+        shareBtn.textContent = origineleShareTekst;
+      }, 2000);
+      return;
     }
-  } else {
-    navigator.clipboard.writeText(`"${smoesTekst}" - Genereer je eigen smoes op ${shareUrl}`);
-    alert('Smoes gekopieerd naar klembord!');
-  }
-});
+
+    const shareUrl = "https://excuusexpert.github.io/excuusexpert";
+
+    // Mobiel delen indien ondersteund
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "ExcuusExpert",
+          text: `Check deze smoes: "${smoesTekst}"`,
+          url: shareUrl
+        });
+      } catch (err) {
+        console.log("Delen geannuleerd");
+      }
+    } else {
+      // Fallback: kopiëren naar klembord met knop-feedback
+      await navigator.clipboard.writeText(`"${smoesTekst}" - Genereer je eigen smoes op ${shareUrl}`);
+      const origineleShareTekst = shareBtn.textContent;
+      shareBtn.textContent = "✅ Gekopieerd!";
+      setTimeout(() => {
+        shareBtn.textContent = origineleShareTekst;
+      }, 2000);
+    }
+  });
+}
