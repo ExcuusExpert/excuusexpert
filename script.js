@@ -827,35 +827,44 @@ if (shareBtn) {
 
     // Geef subtiele knop-feedback als er nog geen smoes is gegeneerd
     if (!smoesTekst) {
-      const origineleShareTekst = shareBtn.textContent;
-      shareBtn.textContent = "⚠️ Genereer eerst een smoes!";
-      setTimeout(() => {
-        shareBtn.textContent = origineleShareTekst;
-      }, 2000);
-      return;
-    }
-
-    const shareUrl = "https://excuusexpert.github.io/excuusexpert";
-
-    // Mobiel delen indien ondersteund
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "ExcuusExpert",
-          text: `Check deze smoes: "${smoesTekst}"`,
-          url: shareUrl
-        });
-      } catch (err) {
-        console.log("Delen geannuleerd");
-      }
-    } else {
-      // Fallback: kopiëren naar klembord met knop-feedback
-      await navigator.clipboard.writeText(`"${smoesTekst}" - Genereer je eigen smoes op ${shareUrl}`);
-      const origineleShareTekst = shareBtn.textContent;
+  const origineleShareTekst = shareBtn.textContent;
       shareBtn.textContent = "✅ Gekopieerd!";
       setTimeout(() => {
         shareBtn.textContent = origineleShareTekst;
       }, 2000);
     }
   });
+}
+
+/* ================================
+   PANIEKKNOP LOGICA
+================================= */
+const panicExcuses = [
+  "Mijn fietssleutel is vanochtend afgebroken in het slot, ik moest rennend naar school.",
+  "Magister lag er gisteravond compleet uit, ik kon mijn huiswerk nergens inzien.",
+  "Mijn wekker is niet afgegaan door een automatische software-update van mijn telefoon.",
+  "De ketting van mijn fiets vloog eronderweg af en kwam helemaal vast te zitten tussen de kettingkast.",
+  "Ik had de verkeerde stapel boeken meegenomen omdat het rooster in de app niet goed vernieuwd was."
+];
+
+function generatePanicExcuse() {
+  const randomExcuse = panicExcuses[Math.floor(Math.random() * panicExcuses.length)];
+  document.getElementById('panicText').innerText = randomExcuse;
+  document.getElementById('panicModal').style.display = 'flex';
+}
+
+function closePanicModal(event) {
+  if (event.target.id === 'panicModal') {
+    document.getElementById('panicModal').style.display = 'none';
+  }
+}
+
+function closePanicModalDirect() {
+  document.getElementById('panicModal').style.display = 'none';
+}
+
+function copyPanicExcuse() {
+  const text = document.getElementById('panicText').innerText;
+  navigator.clipboard.writeText(text);
+  alert('Spoedexcuus gekopieerd!');
 }
