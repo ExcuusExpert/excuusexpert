@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script data-goatcounter="https://excuusexpert.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+  <script data-goatcounter="https://excuusexpert.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
   <style>
     /* ================================
        THEMA & ANIMAITES
@@ -109,7 +109,41 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 15px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
+    }
+
+    /* ================================
+       PANIEKKNOP STYLING
+    ================================= */
+    .panic-container {
+      width: 100%;
+      margin: 0 auto 28px auto;
+      text-align: center;
+    }
+
+    #panicBtn {
+      width: 100%;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #b91c1c 0%, #7f1d1d 100%);
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(127, 29, 29, 0.35);
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+    }
+
+    #panicBtn:hover {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+    }
+
+    #panicBtn:active {
+      transform: scale(0.98);
     }
 
     label {
@@ -353,6 +387,88 @@
       text-decoration: underline;
     }
 
+    /* ================================
+       MODAL POP-UP STYLING
+    ================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(4, 5, 8, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .modal-card {
+      background: rgba(18, 20, 33, 0.95);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.25);
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      margin: auto;
+      box-sizing: border-box;
+      animation: popUp 0.25s ease-out;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-badge {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .modal-text {
+      font-size: 16px;
+      color: #ffffff;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .copy-panic-btn {
+      width: 100%;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
     @media (max-width: 500px) {
       .container { padding: 28px 20px; }
       .logo { font-size: 32px; }
@@ -367,6 +483,13 @@
 
     <h1 class="logo">ExcuusExpert</h1>
     <p class="description">De slimste smoesgenerator voor school.</p>
+
+    <!-- INSTANT PANIEKKNOP -->
+    <div class="panic-container">
+      <button id="panicBtn" onclick="generatePanicExcuse()">
+        <i class="fa-solid fa-triangle-exclamation"></i> INSTANT PANIEKKNOP
+      </button>
+    </div>
 
     <label for="probleem">Wat is er gebeurd?</label>
     <div class="select-wrapper">
@@ -418,12 +541,26 @@
 
   </div>
 
+  <!-- POP-UP MODAL (STAAT BUITEN DE CONTAINER VOOR PERFECTE CENTRERING) -->
+  <div id="panicModal" class="modal-overlay" onclick="closePanicModal(event)">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-badge">🚨 SPOEDEXCUUS</span>
+        <button class="close-btn" onclick="closePanicModalDirect()">&times;</button>
+      </div>
+      <p id="panicText" class="modal-text"></p>
+      <button class="copy-panic-btn" onclick="copyPanicExcuse()">
+        <i class="fa-regular fa-copy"></i> Kopieer Excuus
+      </button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 
   <footer class="footer-text">
     <p>Made by Hessel.<br>
     Heb je zelf een meesterlijke smoes? Stuur 'm in via <a href="mailto:excuusexpert@outlook.com">excuusexpert@outlook.com</a><br>
-    beta V4.0
+    beta V5.0
     </p>
   </footer>
 
