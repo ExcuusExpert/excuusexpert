@@ -19,6 +19,48 @@
   <script data-goatcounter="https://excuusexpert.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
   <style>
+    /* Inzend-link styling in footer */
+.footer-submit-btn {
+  color: #818cf8;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.footer-submit-btn:hover {
+  color: #ffffff;
+}
+
+/* Inzend Modal Styling */
+.submit-card {
+  border-color: rgba(108, 99, 255, 0.4) !important;
+  box-shadow: 0 0 40px rgba(108, 99, 255, 0.25) !important;
+}
+
+.submit-textarea {
+  width: 100%;
+  min-height: 90px;
+  background: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  margin-bottom: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.submit-textarea:focus {
+  border-color: var(--border-hover);
+}
     /* ================================
        THEMA & ANIMAITES
     ================================= */
@@ -556,17 +598,37 @@
   </div>
 
   <script src="script.js"></script>
+<!-- INSTUUR MODAL POP-UP -->
+  <div id="submitModal" class="modal-overlay" onclick="closeSubmitModal(event)">
+    <div class="modal-card submit-card">
+      <div class="modal-header">
+        <span class="modal-badge" style="background: rgba(108, 99, 255, 0.2); color: #a5b4fc;">💡 SMOES INSTUREN</span>
+        <button class="close-btn" onclick="closeSubmitModalDirect()">&times;</button>
+      </div>
+      
+      <form id="excuseForm" action="https://formspree.io/f/xkjngdbl" method="POST" onsubmit="handleFormSubmit(event)">
+        <textarea name="smoes" class="submit-textarea" placeholder="Typ hier jouw meesterlijke smoes..." required></textarea>
+        <button type="submit" class="generate-button" style="margin-top: 0; padding: 12px;">
+          🚀 Versturen
+        </button>
+      </form>
+    </div>
+  </div>
 
+  <script src="script.js"></script>
+
+  <!-- VERNIEUWDE FOOTER -->
   <footer class="footer-text">
-  <p>Made by Hessel.<br>
-  Heb je zelf een meesterlijke smoes? Stuur 'm in via <a href="mailto:excuusexpert@outlook.com">excuusexpert@outlook.com</a></p>
-  
-  <a href="https://www.snapchat.com/@excuus-expert" target="_blank" rel="noopener noreferrer" class="footer-snapchat-btn">
-    <i class="fa-brands fa-snapchat"></i> Volg mij op Snapchat
-  </a>
+    <p>Made by Hessel.<br>
+    Heb je zelf een meesterlijke smoes? 
+    <button class="footer-submit-btn" onclick="openSubmitModal()">Stuur 'm direct in!</button></p>
+    
+    <a href="https://snapchat.com/add/JOUW_GEBRUIKERSNAAM" target="_blank" rel="noopener noreferrer" class="footer-snapchat-btn">
+      <i class="fa-brands fa-snapchat"></i> Volg mij op Snapchat
+    </a>
 
-  <p>beta V5.0</p>
-</footer>
+    <p>beta V5.0</p>
+  </footer>
 
 </body>
 </html>
