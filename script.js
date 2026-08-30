@@ -868,3 +868,25 @@ function copyPanicExcuse() {
   navigator.clipboard.writeText(text);
   alert('Spoedexcuus gekopieerd!');
 }
+function openSubmitModal() {
+  document.getElementById('submitModal').style.display = 'flex';
+}
+
+function closeSubmitModalDirect() {
+  document.getElementById('submitModal').style.display = 'none';
+}
+
+function closeSubmitModal(event) {
+  if (event.target.id === 'submitModal') {
+    closeSubmitModalDirect();
+  }
+}
+
+function handleFormSubmit(event) {
+  // Verzendt de inzending en sluit de modal direct
+  setTimeout(() => {
+    alert("Bedankt! Je smoes is succesvol ingestuurd.");
+    closeSubmitModalDirect();
+    document.getElementById('excuseForm').reset();
+  }, 500);
+}
