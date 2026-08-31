@@ -1,3 +1,22 @@
+/* -----------------------------
+   HAMBURGER MENU LOGICA
+----------------------------- */
+function toggleMenu() {
+  const navMenu = document.getElementById("navMenu");
+  const hamburgerIcon = document.getElementById("hamburgerIcon");
+  if (navMenu) {
+    navMenu.classList.toggle("active");
+    if (navMenu.classList.contains("active")) {
+      hamburgerIcon.className = "fa-solid fa-xmark";
+    } else {
+      hamburgerIcon.className = "fa-solid fa-bars";
+    }
+  }
+}
+
+/* -----------------------------
+   SMOES DATABASE
+----------------------------- */
 const database = {
   "Te laat": {
     "1-2": [
@@ -27,7 +46,6 @@ const database = {
       "Oeps, ik raakte even in gesprek in de gang.",
       "Sorry, ik ben er nu!"
     ],
-
     "3-4": [
       "Sorry dat ik te laat ben. Mijn ochtend liep anders dan gepland.",
       "Excuus voor de vertraging, de bus had wat vertraging onderweg.",
@@ -55,7 +73,6 @@ const database = {
       "Mijn excuses, ik was in de veronderstelling dat de les vijf minuten later begon.",
       "Sorry voor de vertraging, ik ben meteen doorgelopen toen ik aankwam."
     ],
-
     "5-6": [
       "Sorry dat ik te laat ben. Mijn planning liep vanochtend uit en daardoor kwam ik later aan.",
       "Mijn excuses voor de vertraging. Ik had onderweg onverwachte vertraging door het verkeer.",
@@ -83,7 +100,6 @@ const database = {
       "Mijn excuses dat ik te laat ben. Ik neem meteen mijn spullen erbij.",
       "Sorry voor de vertraging. Ik zal zorgen dat ik dit snel inhaal."
     ],
-
     "7-8": [
       "Mijn excuses dat ik te laat ben. Mijn planning liep vanochtend uit, waardoor ik later ben aangekomen. Ik zal hier de volgende keer beter rekening mee houden.",
       "Excuus voor de vertraging. Ik had het openbaar vervoer beter moeten inplannen. Dit zal niet meer gebeuren.",
@@ -111,7 +127,6 @@ const database = {
       "Het spijt me dat ik niet stipt aanwezig was. Ik zal beter opletten om het lokaal niet opnieuw te verstoren.",
       "Mijn excuses voor de opgelopen vertraging. Ik zal zorgen dat ik mijn reisvoorbereiding vanaf nu aanscherp."
     ],
-
     "9-10": [
       "Mijn excuses dat ik te laat ben. Ik had mijn tijd vanochtend niet goed ingeschat en daardoor ben ik later aangekomen. Ik begrijp dat dit mijn verantwoordelijkheid is.",
       "Uiterst excuses voor mijn verlate binnenkomst. Ik begrijp dat stiptheid belangrijk is en ik neem de volledige verantwoording voor dit verzuim.",
@@ -140,7 +155,6 @@ const database = {
       "Mijn excuses voor mijn onstiptheid vanmorgen. Ik begrijp dat dit mijn eigen verantwoordelijkheid is en zal dit voortaan voorkomen."
     ]
   },
-
   "Huiswerk vergeten": {
     "1-2": [
       "Oeps, ik ben mijn huiswerk vergeten.",
@@ -169,7 +183,6 @@ const database = {
       "Ik heb alleen het eerste deel af gekregen.",
       "Oeps, ik was er heilig van overtuigd dat ik het al had ingeleverd."
     ],
-
     "3-4": [
       "Sorry, ik ben mijn huiswerk vergeten mee te nemen.",
       "Excuses, ik heb het thuis gemaakt maar ben het schrift vergeten in te pakken.",
@@ -197,7 +210,6 @@ const database = {
       "Excuses, mijn schrift ligt helaas nog op de keukentafel.",
       "Sorry, ik dacht dat we het samen in de klas zouden nakijken en maken."
     ],
-
     "5-6": [
       "Mijn excuses, ik heb mijn huiswerk thuis laten liggen. Ik was vergeten het vanochtend in mijn tas te doen.",
       "Sorry voor het ongemak, ik heb de opdracht wel afgemaakt maar het verkeerde schrift meegenomen.",
@@ -225,7 +237,6 @@ const database = {
       "Excuus dat ik het niet bij me heb, ik heb per ongeluk mijn oude schrift meegenomen.",
       "Mijn excuses, ik ben vergeten de uitgewerkte opdrachten vanmorgen in mijn tas te steken."
     ],
-
     "7-8": [
       "Mijn excuses, ik heb mijn huiswerk wel gemaakt maar ben vergeten het mee te nemen. Ik had mijn tas beter moeten controleren.",
       "Het spijt me dat ik mijn huiswerk niet bij me heb. Ik had de planning beter moeten bijhouden en zal dit voortaan beter controleren.",
@@ -253,7 +264,6 @@ const database = {
       "Mijn excuses, ik had beter op de lesplanner moeten kijken zodat ik het juiste werk bij me had.",
       "Excuus dat het huiswerk thuis ligt. Ik zal er alert op zijn dat mijn spullen voortaan compleet zijn."
     ],
-
     "9-10": [
       "Mijn excuses. Ik heb mijn huiswerk gemaakt, maar ben vergeten het mee te nemen. Ik had mijn tas beter moeten controleren voordat ik naar school ging. Ik begrijp dat dit mijn verantwoordelijkheid is.",
       "Uiterst excuses voor het niet bij me hebben van het huiswerk. Ik begrijp dat dit mijn eigen verzuim is en accepteer de consequenties hiervan.",
@@ -282,7 +292,6 @@ const database = {
       "Mijn excuses voor het ontbreken van mijn uitwerkingen. Ik zal de les aandachtig volgen en de opdracht alsnog vandaag bij u inleveren."
     ]
   },
-
   "Proefwerk niet geleerd": {
     "1-2": [
       "Oeps, ik heb eigenlijk niet genoeg geleerd.",
@@ -311,7 +320,6 @@ const database = {
       "Oeps, ik kreeg de stof gisteravond gewoon niet in mijn hoofd.",
       "Ik wist eerlijk gezegd echt niet dat dit vandaag op de planning stond!"
     ],
-
     "3-4": [
       "Sorry, ik heb niet genoeg tijd besteed aan het leren.",
       "Excuses, ik heb me helaas op het verkeerde vak gefocust gisteren.",
@@ -339,7 +347,6 @@ const database = {
       "Excuses, ik dacht dat de stof van deze week niet mee zou tellen.",
       "Sorry, ik heb me helaas onvoldoende kunnen voorbereiden op deze toets."
     ],
-
     "5-6": [
       "Mijn excuses, ik heb me onvoldoende voorbereid op het proefwerk. Ik had eerder moeten beginnen.",
       "Excuus dat ik niet goed voorbereid ben. Mijn planning voor de voorbereiding liep gisteren mis.",
@@ -367,7 +374,6 @@ const database = {
       "Excuus voor de situatie, ik heb niet voldoende tijd kunnen besteden aan de lastige onderdelen.",
       "Mijn excuses, ik heb me helaas niet voldoende verdiept in de stof voor het proefwerk van vandaag."
     ],
-
     "7-8": [
       "Mijn excuses. Ik heb me onvoldoende voorbereid op het proefwerk. Ik had eerder moeten beginnen en mijn tijd beter moeten verdelen.",
       "Excuus voor mijn gebrekkige voorbereiding. Ik had de stofafbakening beter moeten controleren en een strakker leerschema moeten hanteren.",
@@ -395,7 +401,6 @@ const database = {
       "Het spijt me dat ik de leereisen verkeerd heb ingeschat. Ik zorg dat mijn voorbereiding voor de volgende toets beter is.",
       "Mijn excuses dat ik het proefwerk onvoorbereid moet maken. Ik had actiever met de stof aan de slag moeten gaan."
     ],
-
     "9-10": [
       "Mijn excuses. Ik heb me onvoldoende voorbereid op het proefwerk. Ik had eerder moeten beginnen en begrijp dat dit mijn eigen verantwoordelijkheid is.",
       "Oprechte excuses voor mijn gebrekkige voorbereiding op dit proefwerk. Ik neem de volledige verantwoording voor het niet nakomen van mijn leerplicht.",
@@ -424,7 +429,6 @@ const database = {
       "Mijn oprechte excuses voor deze onvoldoende voorbereiding. Ik begrijp dat dit mijn eigen schuld is en ga de stof alsnog grondig bestuderen."
     ]
   },
-
   "Boek vergeten": {
     "1-2": [
       "Oeps, ik ben mijn boek vergeten.",
@@ -453,7 +457,6 @@ const database = {
       "Mijn boek ligt helaas nog in de kantine.",
       "Oeps, mag ik voor deze keer met mijn buurman meekijken?"
     ],
-
     "3-4": [
       "Sorry, ik ben vergeten mijn boek mee te nemen.",
       "Excuses, ik heb per ongeluk het verkeerde boek ingepakt vanochtend.",
@@ -481,7 +484,6 @@ const database = {
       "Excuses, mijn boek ligt helaas nog in de mediatheek.",
       "Sorry, ik heb mij vergist in het rooster en daardoor het verkeerde boek bij me."
     ],
-
     "5-6": [
       "Mijn excuses, ik heb mijn boek thuis laten liggen. Ik ben vergeten het vanochtend in mijn tas te doen.",
       "Excuus dat ik het boek niet bij me heb. Ik heb gisteravond het verkeerde deel in mijn tas gestopt.",
@@ -509,7 +511,6 @@ const database = {
       "Excuus voor de nalatigheid. Ik zal de opdrachten op een los vel uitwerken en thuis overnemen.",
       "Mijn excuses dat mijn boek thuis ligt. Ik zorg dat mijn lesmateriaal de volgende les weer compleet is."
     ],
-
     "7-8": [
       "Mijn excuses, ik ben mijn boek vergeten mee te nemen. Ik had mijn tas beter moeten controleren voordat ik naar school ging.",
       "Excuus dat ik mijn lesboek niet bij me heb. Ik had gisteravond mijn spullen al nauwkeuriger klaar moeten leggen.",
@@ -537,7 +538,6 @@ const database = {
       "Het spijt me dat ik mijn spullen niet compleet heb. Ik zal mijn inpakroutine voor schoolstappen aanscherpen.",
       "Mijn excuses voor het ontbreken van het lesboek. Ik zal mijn uiterste best doen om de les zonder hinder mee te doen."
     ],
-
     "9-10": [
       "Mijn excuses. Ik ben mijn boek vergeten mee te nemen. Ik had mijn tas beter moeten controleren en begrijp dat dit mijn verantwoordelijkheid is.",
       "Uiterst excuses voor het niet bij me hebben van het vereiste lesboek. Ik begrijp dat dit mijn eigen verzuim is en accepteer de consequenties.",
@@ -566,7 +566,6 @@ const database = {
       "Mijn excuses voor het ontbreken van mijn lesboek. Ik zal het lokaal niet verder verstoren en de les stilletjes voltooien."
     ]
   },
-
   "Te weinig tijd gehad": {
     "1-2": [
       "Sorry, ik had niet genoeg tijd.",
@@ -595,7 +594,6 @@ const database = {
       "Oeps, ik heb de tijd helemaal verkeerd ingeschat.",
       "Sorry, ik ben niet helemaal tot het einde gekomen!"
     ],
-
     "3-4": [
       "Sorry, ik had te weinig tijd om alles af te maken.",
       "Excuses, mijn planning liep gisteravond erg uit waardoor ik niet klaar ben.",
@@ -623,7 +621,6 @@ const database = {
       "Excuses, het kostte meer tijd dan ik van tevoren had ingeruimd.",
       "Sorry, ik ben helaas op de helft moeten stoppen vanwege de tijd."
     ],
-
     "5-6": [
       "Mijn excuses, ik had te weinig tijd om alles af te maken. Ik had mijn planning beter moeten maken.",
       "Excuus dat het niet af is. Ik heb de benodigde tijd gisteravond verkeerd ingeschat.",
@@ -651,7 +648,6 @@ const database = {
       "Excuus voor de gebrekkige afronding. Ik zal mijn tijdsindeling voor de volgende keer aanpassen.",
       "Mijn excuses, ik heb gisteravond niet alles af kunnen maken door een te volle agenda."
     ],
-
     "7-8": [
       "Mijn excuses. Ik had te weinig tijd om alles af te maken en ik had mijn planning beter moeten organiseren.",
       "Excuus dat de opdracht niet volledig is. Ik neem de verantwoordelijkheid voor het niet goed nakomen van mijn tijdsplanning.",
@@ -679,7 +675,6 @@ const database = {
       "Het spijt me dat het werk blijft liggen. Ik had mijn prioriteiten gisteravond duidelijker op mijn schoolwerk moeten stellen.",
       "Mijn excuses voor het niet tijdig afronden. Ik zal de gemiste onderdelen na de les alsnog op korte termijn afmaken."
     ],
-
     "9-10": [
       "Mijn excuses. Ik heb de benodigde tijd verkeerd ingeschat en daardoor niet alles op tijd kunnen afronden. Ik begrijp dat dit mijn verantwoordelijkheid is.",
       "Uiterst excuses voor het niet volledig opleveren van deze opdracht. Ik accepteer de volledige verantwoording voor het mislukken van mijn tijdsplanning.",
@@ -754,7 +749,6 @@ if (knop) {
 
     const opties = database[probleem][groep];
 
-    // Kies willekeurige smoes en voorkom dat dezelfde 2x achter elkaar komt
     if (Array.isArray(opties)) {
       let willekeurigeIndex;
       do {
@@ -771,20 +765,17 @@ if (knop) {
       resultaat.style.display = "block";
     }
 
-    // 1. Blokkeer de knop tegen spammen
     knop.disabled = true;
     const origineleTekst = knop.textContent;
 
     let seconden = 5;
     knop.textContent = `Wacht ${seconden}s...`;
 
-    // 2. Tel elke seconde af
     const timer = setInterval(() => {
       seconden--;
       if (seconden > 0) {
         knop.textContent = `Wacht ${seconden}s...`;
       } else {
-        // 3. Herstel de knop na 5 seconden
         clearInterval(timer);
         knop.disabled = false;
         knop.textContent = origineleTekst;
@@ -825,9 +816,28 @@ if (shareBtn) {
   shareBtn.addEventListener("click", async () => {
     const smoesTekst = resultaatTekst ? resultaatTekst.textContent : "";
 
-    // Geef subtiele knop-feedback als er nog geen smoes is gegeneerd
     if (!smoesTekst) {
-  const origineleShareTekst = shareBtn.textContent;
+      const origineleShareTekst = shareBtn.textContent;
+      shareBtn.textContent = "⚠️ Genereer eerst een smoes!";
+      setTimeout(() => {
+        shareBtn.textContent = origineleShareTekst;
+      }, 2000);
+      return;
+    }
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'ExcuusExpert Smoes',
+          text: smoesTekst,
+          url: window.location.href,
+        });
+      } catch (err) {
+        console.log("Delen geannuleerd");
+      }
+    } else {
+      navigator.clipboard.writeText(smoesTekst);
+      const origineleShareTekst = shareBtn.textContent;
       shareBtn.textContent = "✅ Gekopieerd!";
       setTimeout(() => {
         shareBtn.textContent = origineleShareTekst;
@@ -868,6 +878,10 @@ function copyPanicExcuse() {
   navigator.clipboard.writeText(text);
   alert('Spoedexcuus gekopieerd!');
 }
+
+/* ================================
+   INZEND MODAL LOGICA
+================================= */
 function openSubmitModal() {
   document.getElementById('submitModal').style.display = 'flex';
 }
@@ -883,7 +897,6 @@ function closeSubmitModal(event) {
 }
 
 function handleFormSubmit(event) {
-  // Verzendt de inzending en sluit de modal direct
   setTimeout(() => {
     alert("Bedankt! Je smoes is succesvol ingestuurd.");
     closeSubmitModalDirect();
