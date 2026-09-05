@@ -641,3 +641,40 @@ body.light-mode .seo-accordion-container p,
 body.light-mode .seo-accordion-container strong {
   color: #334155 !important;
 }
+/* Hamburgermenu knop + uitklapmenu fix voor licht modus */
+
+/* 1. Hamburgerknop stijlen */
+body.light-mode .hamburger-btn,
+body.light-mode .hamburger {
+  background: var(--input-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  color: #0f172a !important;
+}
+
+/* Voor FontAwesome icoontje */
+body.light-mode .hamburger-btn i,
+body.light-mode #hamburgerIcon {
+  color: #0f172a !important;
+}
+
+/* Voor losse streepjes (span-elementen) */
+body.light-mode .hamburger-btn span,
+body.light-mode .hamburger span {
+  background-color: #0f172a !important;
+}
+
+/* 2. Geopende menu-dropdown aanpassen */
+body.light-mode .nav-menu {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .nav-menu a {
+  color: #0f172a !important;
+}
+
+body.light-mode .nav-menu a:hover {
+  background: rgba(108, 99, 255, 0.1) !important;
+  color: #6c63ff !important;
+}
