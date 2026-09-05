@@ -903,3 +903,28 @@ function handleFormSubmit(event) {
     document.getElementById('excuseForm').reset();
   }, 500);
 }
+/* -----------------------------
+   LICHT / DONKER MODUS LOGICA
+----------------------------- */
+function toggleTheme() {
+  document.body.classList.toggle("light-mode");
+  const isLight = document.body.classList.contains("light-mode");
+  
+  const themeIcon = document.getElementById("themeIcon");
+  if (themeIcon) {
+    themeIcon.className = isLight ? "fa-solid fa-moon" : "fa-solid fa-sun";
+  }
+  
+  localStorage.setItem("themePreference", isLight ? "light" : "dark");
+}
+
+// Opgeslagen voorkeur laden zodra de pagina laadt
+document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("themePreference") === "light") {
+    document.body.classList.add("light-mode");
+    const themeIcon = document.getElementById("themeIcon");
+    if (themeIcon) {
+      themeIcon.className = "fa-solid fa-moon";
+    }
+  }
+});
