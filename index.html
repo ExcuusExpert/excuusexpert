@@ -23,25 +23,33 @@
 
 <body>
 
-  <!-- NAVBAR MET HAMBURGER MENU -->
+  <!-- NAVBAR MET THEMA TOGGLE & HAMBURGER MENU -->
   <header class="navbar">
-    <div class="nav-brand">ExcuusExpert</div>
-    <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menu">
-      <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
-    </button>
+    <div class="nav-brand">Excuus<span>Expert</span></div>
+
+    <div class="nav-actions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Thema wisselen">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+      </button>
+
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menu">
+        <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+      </button>
+    </div>
+
     <nav class="nav-menu" id="navMenu">
-  <ul>
-    <li><a href="https://excuusexpert.github.io/home/" onclick="toggleMenu()"><i class="fa-solid fa-house"></i> Home</a></li>
-    <li><a href="https://excuusexpert.github.io/studytrack" target="_blank" onclick="toggleMenu()"><i class="fa-solid fa-calendar-check"></i> StudyTrack - Huiswerk & Toets Planner</a></li>
-    <li><a href="#" onclick="toggleMenu(); openSubmitModal();"><i class="fa-solid fa-paper-plane"></i> Smoes Insturen</a></li>
-    <li><a href="https://snapchat.com/add/Excuus-Expert" target="_blank" onclick="toggleMenu()"><i class="fa-brands fa-snapchat"></i> Snapchat</a></li>
-  </ul>
-</nav>
+      <ul>
+        <li><a href="https://excuusexpert.github.io/home/" onclick="toggleMenu()"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="https://excuusexpert.github.io/studytrack" target="_blank" onclick="toggleMenu()"><i class="fa-solid fa-calendar-check"></i> StudyTrack - Huiswerk & Toets Planner</a></li>
+        <li><a href="#" onclick="toggleMenu(); openSubmitModal();"><i class="fa-solid fa-paper-plane"></i> Smoes Insturen</a></li>
+        <li><a href="https://snapchat.com/add/Excuus-Expert" target="_blank" onclick="toggleMenu()"><i class="fa-brands fa-snapchat"></i> Snapchat</a></li>
+      </ul>
+    </nav>
   </header>
 
   <div class="container">
 
-    <h1 class="logo">ExcuusExpert</h1>
+    <h1 class="logo">Excuus<span>Expert</span></h1>
     <p class="description">De slimste smoesgenerator voor school.</p>
 
     <!-- INSTANT PANIEKKNOP -->
@@ -132,7 +140,7 @@
     </div>
   </div>
   
-    <!-- INKLAPBAAR SEO-BLOK (Strak voor scholieren, perfect voor Google) -->
+  <!-- INKLAPBAAR SEO-BLOK -->
   <div class="seo-accordion-container" style="max-width: 600px; margin: 40px auto 20px auto; padding: 0 20px;">
     <details style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; cursor: pointer;">
       <summary style="font-weight: 600; color: #a5b4fc; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
@@ -149,14 +157,8 @@
 
   <!-- FOOTER -->
   <footer class="footer-text">
-    <p>Made by less.<br>
-     
-    
-    
-    <a href="https://snapchat.com/add/Excuus-Expert" target="_blank" rel="noopener noreferrer" class="footer-snapchat-btn">
-       
-    </a>
-
+    <p>Made by less.</p>
+    <a href="https://snapchat.com/add/Excuus-Expert" target="_blank" rel="noopener noreferrer" class="footer-snapchat-btn"></a>
     <p>beta V5.0</p>
   </footer>
 
