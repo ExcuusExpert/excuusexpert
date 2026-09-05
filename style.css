@@ -545,3 +545,99 @@ select:hover, select:focus {
   .logo { font-size: 32px; }
   .button-group { grid-template-columns: 1fr; }
 }
+/* Licht modus variabelen */
+body.light-mode {
+  --bg-dark: #f8fafc;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --input-bg: rgba(241, 245, 249, 0.9);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(108, 99, 255, 0.6);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+}
+
+body.light-mode label {
+  color: #1e293b;
+}
+
+body.light-mode .result-text,
+body.light-mode .modal-text {
+  color: #0f172a;
+}
+
+/* Tekst-logo donker maken in licht modus */
+.logo {
+  transition: color 0.3s ease;
+}
+
+body.light-mode .logo,
+body.light-mode .logo a,
+body.light-mode .logo h1,
+body.light-mode .logo h2 {
+  color: #0f172a;
+}
+
+/* Navbar uitlijning & knoppen */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle-btn {
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  font-size: 18px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--border-hover);
+  color: #818cf8;
+}
+/* Logo-tekst fix voor licht modus */
+body.light-mode .nav-brand,
+body.light-mode .logo {
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  background: transparent !important;
+}
+
+body.light-mode .nav-brand span,
+body.light-mode .logo span {
+  display: inline-block;
+  background: linear-gradient(135deg, #6c63ff, #a855f7) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+}
+/* SEO-accordion aanpassingen voor licht modus */
+body.light-mode .seo-accordion-container details {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .seo-accordion-container summary {
+  color: #4f46e5 !important;
+}
+
+body.light-mode .seo-accordion-container h2 {
+  color: #0f172a !important;
+}
+
+body.light-mode .seo-accordion-container .seo-content,
+body.light-mode .seo-accordion-container p,
+body.light-mode .seo-accordion-container strong {
+  color: #334155 !important;
+}
