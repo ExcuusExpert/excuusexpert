@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ExcuusExpert 🤫 De 100+ Beste Schoolsmoesjes (Die Écht Werken)</title>
+
+  <!-- Google SEO & Favicon -->
+  <meta name="description" content="Te laat gekomen of je huiswerk vergeten? 😱 Geen paniek! Vind op ExcuusExpert direct de meest geloofwaardige en waterdichte smoesjes voor school.">
+  <link rel="icon" type="image/png" href="jouw-logo.png">
+  <meta name="google-site-verification" content="6CH9S9xC1Fp_FROwEj38SJQM01kB6wiO9QQFOhzRPNw" />
+
+  <!-- Modern Lettertype & FontAwesome Iconen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script data-goatcounter="https://excuusexpert.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR MET THEMA TOGGLE & HAMBURGER MENU -->
+  <header class="navbar">
+    <div class="nav-brand">Excuus<span>Expert</span></div>
+
+    <div class="nav-actions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Thema wisselen">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+      </button>
+
+      <button class="profile-avatar-btn" id="profileAvatarBtn" type="button" aria-label="Lokaal profiel openen">
+        <span id="profileAvatarInitials">?</span>
+      </button>
+
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMenu()" aria-label="Menu">
+        <i class="fa-solid fa-bars" id="hamburgerIcon"></i>
+      </button>
+    </div>
+
+    <nav class="nav-menu" id="navMenu">
+      <ul>
+        <li><a href="https://excuusexpert.github.io" onclick="toggleMenu()"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="https://excuusexpert.github.io/studytrack" target="_blank" onclick="toggleMenu()"><i class="fa-solid fa-calendar-check"></i> StudyTrack - Huiswerk & Toets Planner</a></li>
+        <li><a href="#" onclick="toggleMenu(); openSubmitModal();"><i class="fa-solid fa-paper-plane"></i> Smoes Insturen</a></li>
+        <li><a href="https://snapchat.com/add/Excuus-Expert" target="_blank" onclick="toggleMenu()"><i class="fa-brands fa-snapchat"></i> Snapchat</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+
+    <h1 class="logo">Excuus<span>Expert</span></h1>
+    <p class="description">De slimste smoesgenerator voor school.</p>
+
+    <!-- INSTANT PANIEKKNOP -->
+    <div class="panic-container">
+      <button id="panicBtn" onclick="generatePanicExcuse()">
+        <i class="fa-solid fa-triangle-exclamation"></i> INSTANT PANIEKKNOP
+      </button>
+    </div>
+
+    <label for="probleem">Wat is er gebeurd?</label>
+    <div class="select-wrapper">
+      <select id="probleem">
+        <option value="Te laat">Te laat</option>
+        <option value="Huiswerk vergeten">Huiswerk vergeten</option>
+        <option value="Proefwerk niet geleerd">Proefwerk niet geleerd</option>
+        <option value="Boek vergeten">Boek vergeten</option>
+        <option value="Te weinig tijd gehad">Te weinig tijd gehad</option>
+        <option value="custom">Ander onderwerp...</option>
+      </select>
+    </div>
+
+    <div class="custom-topic-field" id="customTopicField" hidden>
+      <label for="customTopic">Waar gaat het over?</label>
+      <input id="customTopic" type="text" maxlength="180" placeholder="Bijvoorbeeld: presentatie niet voorbereid">
+    </div>
+
+    <div class="slider-container">
+      <label for="strengheid">Hoe streng is je docent?</label>
+      <input
+        class="slider"
+        type="range"
+        id="strengheid"
+        min="1"
+        max="10"
+        value="5"
+        step="1"
+        oninput="document.getElementById('strengheidWaarde').textContent = this.value;"
+      >
+      <div class="strength-display">
+        Strengheid: <span class="strength-number"><span id="strengheidWaarde">5</span>/10</span>
+      </div>
+    </div>
+
+    <button class="generate-button" id="generateButton" type="button">
+      ✨ Genereer mijn smoes
+    </button>
+
+    <p class="generator-status" id="generatorStatus" role="status" aria-live="polite"></p>
+
+    <div class="result" id="result">
+      <div class="result-title">
+        <i class="fa-solid fa-lightbulb"></i> Jouw smoes
+      </div>
+      <div class="result-text" id="resultText"></div>
+
+      <div class="button-group">
+        <button id="copyBtn" class="action-btn">
+          <i class="fa-regular fa-copy"></i> Kopieer
+        </button>
+        <button id="shareBtn" class="action-btn">
+          <i class="fa-solid fa-share-nodes"></i> Deel dit!
+        </button>
+      </div>
+    </div>
+
+    <section class="history-section" aria-labelledby="historyTitle">
+      <div class="history-heading">
+        <h2 id="historyTitle">Vorige smoezen</h2>
+        <button class="clear-history-btn" id="clearHistoryBtn" type="button" aria-label="Geschiedenis wissen" title="Geschiedenis wissen">
+          <i class="fa-regular fa-trash-can" aria-hidden="true"></i>
+        </button>
+      </div>
+      <p class="history-empty" id="historyEmpty">Je hebt nog geen smoezen bewaard.</p>
+      <ol class="history-list" id="historyList"></ol>
+    </section>
+
+  </div>
+
+  <div id="profileModal" class="modal-overlay" onclick="closeProfileModal(event)">
+    <div class="modal-card profile-card" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+      <div class="modal-header">
+        <span class="modal-badge profile-badge"><i class="fa-regular fa-user"></i> LOKAAL PROFIEL</span>
+        <button class="close-btn" type="button" onclick="closeProfileModalDirect()" aria-label="Profielvenster sluiten">&times;</button>
+      </div>
+      <h2 class="profile-title" id="profileTitle">Jouw profiel</h2>
+      <form id="profileForm">
+        <label for="profileName">Naam</label>
+        <input class="profile-input" id="profileName" type="text" maxlength="40" autocomplete="name" placeholder="Bijvoorbeeld: Alex" required>
+
+        <label for="profileGroqApiKey">Jouw Groq API-sleutel</label>
+        <div class="api-key-input-wrap">
+          <input class="profile-input" id="profileGroqApiKey" type="password" autocomplete="off" spellcheck="false" placeholder="gsk_...">
+          <button class="key-visibility-btn" id="toggleApiKeyVisibility" type="button" aria-label="Toon API-sleutel">Toon</button>
+        </div>
+        <a class="profile-key-link" href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">API-sleutel aanmaken bij GroqCloud <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <p class="profile-security-note">Naam, sleutel en geschiedenis worden alleen in deze browser opgeslagen. De sleutel is niet versleuteld; gebruik dit niet op een gedeeld apparaat.</p>
+        <p class="profile-status" id="profileStatus" role="status" aria-live="polite"></p>
+        <div class="profile-actions">
+          <button class="generate-button" type="submit">Profiel opslaan</button>
+          <button class="profile-delete-btn" id="clearProfileBtn" type="button">Profiel verwijderen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PANIEK MODAL POP-UP -->
+  <div id="panicModal" class="modal-overlay" onclick="closePanicModal(event)">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span class="modal-badge">🚨 SPOEDEXCUUS</span>
+        <button class="close-btn" onclick="closePanicModalDirect()">&times;</button>
+      </div>
+      <p id="panicText" class="modal-text"></p>
+      <button class="copy-panic-btn" onclick="copyPanicExcuse()">
+        <i class="fa-regular fa-copy"></i> Kopieer Excuus
+      </button>
+    </div>
+  </div>
+
+  <!-- INSTUUR MODAL POP-UP -->
+  <div id="submitModal" class="modal-overlay" onclick="closeSubmitModal(event)">
+    <div class="modal-card submit-card">
+      <div class="modal-header">
+        <span class="modal-badge" style="background: rgba(108, 99, 255, 0.2); color: #a5b4fc;">💡 SMOES INSTUREN</span>
+        <button class="close-btn" onclick="closeSubmitModalDirect()">&times;</button>
+      </div>
+      
+      <form id="excuseForm" action="https://formspree.io/f/xkjngdbl" method="POST" onsubmit="handleFormSubmit(event)">
+        <textarea name="smoes" class="submit-textarea" placeholder="Typ hier jouw meesterlijke smoes..." required></textarea>
+        <button type="submit" class="generate-button" style="margin-top: 0; padding: 12px;">
+          🚀 Versturen
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- INKLAPBAAR SEO-BLOK -->
+  <div class="seo-accordion-container" style="max-width: 600px; margin: 40px auto 20px auto; padding: 0 20px;">
+    <details style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; cursor: pointer;">
+      <summary style="font-weight: 600; color: #a5b4fc; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+        <span>ℹ️ Over ExcuusExpert</span>
+        <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem;"></i>
+      </summary>
+      <div class="seo-content" style="margin-top: 12px; font-size: 0.85rem; color: #cbd5e1; line-height: 1.6; text-align: left; cursor: default;">
+        <h2 style="font-size: 1rem; color: #fff; margin-bottom: 8px;">Waarom ExcuusExpert?</h2>
+        <p>Zit je in de knel op de middelbare school? ExcuusExpert helpt je direct uit de brand met de meest geloofwaardige <strong>schoolsmoesjes</strong>. Of je nu een <strong>excuus voor te laat komen</strong> zoekt, je <strong>huiswerk vergeten</strong> bent, of simpelweg <strong>te weinig tijd gehad</strong> hebt voor je proefwerk; onze slimme generator past het excuus aan op de strengheid van jouw docent. Gebruik de instant panieknop voor acute situaties in de gang!</p>
+        <p style="margin-top: 8px;">Onze database bevat waterdichte smoesjes voor school. Mocht je zelf een goede smoes hebben, dan kan je altijd eentje insturen! Vermeld dan wel even in welke categorie en welke strengheid hij moet.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer-text">
+    <p>Made by less.</p>
+    <a href="https://snapchat.com/add/Excuus-Expert" target="_blank" rel="noopener noreferrer" class="footer-snapchat-btn"></a>
+    <p>beta V5.0</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
