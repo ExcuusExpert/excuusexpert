@@ -962,11 +962,10 @@ if (knop) {
           model: "openai/gpt-oss-20b",
           temperature: 0.8,
           max_tokens: 180,
-          response_format: { type: "json_object" },
           messages: [
             {
               role: "system",
-              content: "Je schrijft in het Nederlands een korte, natuurlijke en tactvolle uitleg aan een docent. Maak de formulering passend bij een strengheidsniveau van 1 (los) tot 10 (formeel). Verzin geen concrete gebeurtenissen, ziekte, familieproblemen of andere feiten die de gebruiker niet heeft genoemd. Neem verantwoordelijkheid waar dat past en stel eventueel een haalbare herstelactie voor. Antwoord uitsluitend als JSON met een stringveld 'excuse'."
+              content: "Je schrijft in het Nederlands een korte, natuurlijke en tactvolle uitleg aan een docent. Maak de formulering passend bij een strengheidsniveau van 1 (los) tot 10 (formeel). Verzin geen concrete gebeurtenissen, ziekte, familieproblemen of andere feiten die de gebruiker niet heeft genoemd. Neem verantwoordelijkheid waar dat past en stel eventueel een haalbare herstelactie voor. Antwoord uitsluitend met de formulering, zonder aanhalingstekens of toelichting."
             },
             {
               role: "user",
@@ -990,14 +989,14 @@ if (knop) {
         throw new Error(`Groq-fout (${response.status}): ${apiError}`);
       }
 
-      const generated = JSON.parse(data.choices?.[0]?.message?.content || "{}");
-      if (typeof generated.excuse !== "string" || !generated.excuse.trim()) {
+      const generated = data.choices?.[0]?.message?.content;
+      if (typeof generated !== "string" || !generated.trim()) {
         throw new Error("Groq gaf geen bruikbare tekst terug. Probeer het opnieuw.");
       }
 
-      resultaatTekst.textContent = generated.excuse.trim();
+      resultaatTekst.textContent = generated.trim();
       resultaat.style.display = "block";
-      addExcuseToHistory(topic, generated.excuse.trim());
+      addExcuseToHistory(topic, generated.trim());
       generatorStatus.textContent = "";
     } catch (error) {
       generatorStatus.textContent = error.message.includes("Groq")
